@@ -1,0 +1,11 @@
+{
+  "name": "jwt_login",
+  "description": "login registration with jwt and angular",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "faker": "^3.0.1"
+  }
+}
