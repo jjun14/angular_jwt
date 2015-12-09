@@ -9,6 +9,7 @@
     'use strict';
     var vm = this;
     vm.login = login;
+    vm.register = register;
     vm.getRandomUser = getRandomUser;
     vm.logout = logout;
 
@@ -24,7 +25,14 @@
 
     function login(username, password){
       UserFactory.login(username, password).then(function success(response){
-        vm.user = response.data.user
+        vm.user = response.data.user;
+        alert(response.data.token);
+      }, handleError);
+    }
+
+    function register(username, password){
+      UserFactory.register(username, password).then(function success(response){
+        vm.user = response.data.user;
         alert(response.data.token);
       }, handleError);
     }
@@ -60,6 +68,17 @@
         return response;
       });
     }
+    
+    function register(username, password){
+      return $http.post(API_URL + '/register', {
+        username: username,
+        password: password
+      }).then(function success(response){
+        AuthTokenFactory.setToken(response.data.token);
+        return response;
+      })
+
+    }
 
     function logout(){
       AuthTokenFactory.setToken();
@@ -75,7 +94,8 @@
     return {
       login: login,
       logout: logout,
-      getUser: getUser
+      getUser: getUser,
+      register: register
     };
   });
 
