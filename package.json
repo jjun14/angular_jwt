@@ -8,6 +8,8 @@
     "express": "^4.13.3",
     "express-jwt": "^3.3.0",
     "faker": "^3.0.1",
-    "mongoose": "^4.2.10"
+    "jsonwebtoken": "^5.4.1",
+    "mongoose": "^4.2.10",
+    "xss-filters": "^1.2.6"
   }
 }

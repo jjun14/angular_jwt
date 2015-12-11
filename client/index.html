@@ -4,27 +4,10 @@
     <meta charset="utf-8">
     <title>JWT Example</title>
   </head>
-  <body ng-controller="MainCtrl as vm">
-    <h1>Get Random User</h1>
-    <h2>Login</h2>
-    <form ng-submit="vm.login(vm.login_username, vm.login_password)">
-      <label>Username: </label><input type='text' ng-model='vm.login_username'/></label><br>
-      <label>Password: </label><input type='password' ng-model='vm.login_password'/></label>
-      <button type="submit">Login</button>
-    </form>
-    <h2>Register</h2>
-    <form ng-submit="vm.register(vm.reg_username, vm.reg_password)">
-      <label>Username: </label><input type='text' ng-model='vm.reg_username'/></label><br>
-      <label>Password: </label><input type='password' ng-model='vm.reg_password'/></label>
-      <button type="submit">Register</button>
-    </form>
-    <div>
-      <h2>Welcome {{vm.user.username}}</h2>
-      <button ng-click="vm.logout()">Logout</button><br/>
-      <button ng-click="vm.getRandomUser()">Get User</button>
-      <pre ng-bind='vm.randomUser | json'></pre>
-    </div>
-    <script src='bower_components/angular/angular.js'></script>
+  <body>
+    <ng-view></ng-view>
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src='/bower_components/angular-route/angular-route.js'></script>
     <script src='app.js'></script>
   </body>
 </html>

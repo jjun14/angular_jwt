@@ -7,6 +7,7 @@ var jwtSecret = 'aasjidfjiodsjfiosajfs';
 var expressJwt = require('express-jwt');
 var bCrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+var xssFilters = require('xss-filters');
 
 var app = express();
 app.use(cors());
@@ -34,15 +35,22 @@ app.get('/random-user', function(req, res){
 
 app.post('/register', validate, function(req, res){
   var body = req.body;
-  var new_user = new User({username: req.body.username, password: createHash(req.body.password)});
+  var filteredUsername = xssFilters.inHTMLData(body.username);
+  var filteredPassword = xssFilters.inHTMLData(body.password);
+  var new_user = new User({username: filteredUsername, password: createHash(filteredPassword)});
   new_user.save()
     .then(function success(user){
-      var token = jwt.sign({
-        username: user.username
-      }, jwtSecret);
+      var token = jwt.sign(
+          {
+            _id: user._id,
+            username: user.username
+          },
+          jwtSecret,
+          {expiresIn: 86400} 
+      );
       res.send({
         token: token,
-        user: user
+        user: {_id: user._id, username:user.username, logged_in: true}
       });
     })
     .then(function error(err){
@@ -53,18 +61,20 @@ app.post('/register', validate, function(req, res){
 
 app.post('/login', validate, function(req, res){
     var body = req.body;
-    User.findOne({username: req.body.username}).exec()
+    var filteredUsername = xssFilters.inHTMLData(body.username);
+    User.findOne({username: filteredUsername}).exec()
       .then(function success(user){
         if(body.username !== user.username || !isValidPassword(user, body.password)){
           res.status(401).end("Invalid login credentials");
           return;
         }
         var token = jwt.sign({
+          _id: user._id,
           username: user.username
         }, jwtSecret);
         res.send({
           token: token,
-          user: user
+          user: {_id: user._id, username:user.username, logged_in: true}
         });
       })
       .then(null, function error(err){
@@ -73,8 +83,11 @@ app.post('/login', validate, function(req, res){
       })
  });
 
-app.get('/me', function(req, res){
-  res.send(req.user);
+app.get('/authenticated', function(req, res){
+  var user = req.user;
+  user.logged_in = true;
+  console.log(user);
+  res.send(user);
 });
 
 app.listen(3000, function(){
