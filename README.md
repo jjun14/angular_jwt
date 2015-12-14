@@ -11,9 +11,9 @@ To get started, do the following:
 
 Finally, cd into the client directory and start a simple-http server
 
-'''
+```
 client $ http-server
-'''
+```
 
 Navigate to localhost:8080 and you should see the login and registration page
 
