@@ -6,8 +6,16 @@
   </head>
   <body>
     <ng-view></ng-view>
-    <script src='/bower_components/angular/angular.js'></script>
-    <script src='/bower_components/angular-route/angular-route.js'></script>
-    <script src='app.js'></script>
+    <script src='./lib/bower_components/angular/angular.js'></script>
+    <script src='./lib/bower_components/angular-route/angular-route.js'></script>
+    <script src='./app/app.module.js'></script>
+    <script src='./app/app.config.js'></script>
+    <script src='./app/app.routes.js'></script>
+    <script src='./app/common/services/AuthInterceptorFactory.js'></script>
+    <script src='./app/common/services/AuthTokenFactory.js'></script>
+    <script src='./app/common/services/UserFactory.js'></script>
+    <script src='./app/home/controllers/HomeController.js'></script>
+    <script src='./app/users/services/RandomUserFactory.js'></script>
+    <script src='./app/users/controllers/UsersController.js'></script>
   </body>
 </html>
