@@ -1,3 +1,4 @@
+// this factory handles the task of authentication
 myApp.factory('UserFactory', function($http, API_URL, AuthTokenFactory, $q){
     var user = null;
     var factory = {};
@@ -5,6 +6,7 @@ myApp.factory('UserFactory', function($http, API_URL, AuthTokenFactory, $q){
     factory.login = login;
     factory.logout = logout;
     factory.loggedIn = loggedIn;
+    // use this method to get user information in your controllers
     factory.getUser =  getUser;
 
     return factory;

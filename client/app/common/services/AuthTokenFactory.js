@@ -1,3 +1,6 @@
+ // this factory handles our token on the client
+ // when a user logs in successfully this factory
+ // will store our token in localStorage
 myApp.factory('AuthTokenFactory', function($window){
     var factory = {};
     var store = $window.localStorage;

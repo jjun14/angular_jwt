@@ -1,7 +1,7 @@
 myApp.controller('UsersController', function($scope, $location, UserFactory, RandomUserFactory){
     $scope.getRandomUser = getRandomUser;
     $scope.logout = logout;
-    
+
     UserFactory.getUser().then(function success(response){
       console.log('Got user in the UserController');
       console.log(response);

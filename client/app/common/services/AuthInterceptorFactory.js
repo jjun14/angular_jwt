@@ -1,3 +1,5 @@
+ // we will use this factory to attach our webtoken to every
+ // request that we send to verify authentication on our server
 myApp.factory('AuthInterceptor', function (AuthTokenFactory){
     var factory = {};
     factory.request = addToken;

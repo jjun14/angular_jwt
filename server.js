@@ -15,7 +15,6 @@ app.use(expressJwt({ secret: jwtSecret })
 
 // DB config
 require('./server/config/mongoose.js');
-require('./server/models/user.js')
 require('./server/config/routes.js')(app);
 
 app.listen(3000, function(){

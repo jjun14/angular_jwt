@@ -24,11 +24,14 @@ module.exports = (function(req, res){
         res.status(400).end('Must provide user name and password');
       }
 
+      // we prevent XSS by filtering the data
       var filteredUsername = xssFilters.inHTMLData(body.username);
       var filteredPassword = xssFilters.inHTMLData(body.password);
+      // create a user and use bCrypt to hash the password
       var new_user = new User({username: filteredUsername, password: createHash(filteredPassword)});
       new_user.save()
         .then(function success(user){
+          // if the user saves successfully we will create a jwt
           var token = jwt.sign(
               {
                 _id: user._id,
@@ -37,6 +40,7 @@ module.exports = (function(req, res){
               jwtSecret,
               {expiresIn: 86400} 
           );
+          // and send that token back to the client
           res.send({
             token: token,
             user: {_id: user._id, username:user.username, logged_in: true}
