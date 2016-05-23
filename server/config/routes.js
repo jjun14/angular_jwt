@@ -16,27 +16,18 @@ var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);
 }
 
-// to validate our post data on certain requests
-function validate(req, res, next){
+function validate(req, res,next){
   var body = req.body;
-  if (!body.username || !body.password) {
-     res.status(400).end('Must provide username and password');
-  }
-//   if(body.username !== user.username || body.password !== user.password){
-//     res.status(401).end('Invalid login credentials')
-//   }
-  next();
 }
 
 module.exports = function(app){
-  app.get('/random-user', function(req, res){
-    var user = faker.helpers.userCard();
-    user.avatar = faker.image.avatar();
-    res.json(user);
-  });
-
-  app.post('/register', validate, function(req, res){
+  app.post('/register', function(req, res){
     var body = req.body;
+
+    if(!body.username || !body.password){
+      res.status(400).end('Must provide user name and password');
+    }
+
     var filteredUsername = xssFilters.inHTMLData(body.username);
     var filteredPassword = xssFilters.inHTMLData(body.password);
     var new_user = new User({username: filteredUsername, password: createHash(filteredPassword)});
@@ -61,7 +52,7 @@ module.exports = function(app){
       })
   });
 
-  app.post('/login', validate, function(req, res){
+  app.post('/login', function(req, res){
       var body = req.body;
       var filteredUsername = xssFilters.inHTMLData(body.username);
       User.findOne({username: filteredUsername}).exec()
@@ -91,4 +82,11 @@ module.exports = function(app){
     console.log(user);
     res.send(user);
   });
+
+  app.get('/random-user', function(req, res){
+    var user = faker.helpers.userCard();
+    user.avatar = faker.image.avatar();
+    res.json(user);
+  });
+
 }
