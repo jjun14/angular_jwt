@@ -1,22 +1,13 @@
-(function(){
-  'use strict';
-  angular
-    .module('app')
-    .config(configureRoutes);
-  
-  function configureRoutes($httpProvider, $routeProvider){
-    $httpProvider.interceptors.push('AuthInterceptor');
+myApp.config(function($httpProvider, $routeProvider){
+  $httpProvider.interceptors.push('AuthInterceptor');
 
-    $routeProvider
-      .when('/', {
-        controller: 'HomeController',
-        controllerAs: 'vm',
-        templateUrl: '/partials/home.html'
-      })
-      .when('/users/:id', {
-          controller: 'UsersController',
-          controllerAs: 'vm',
-          templateUrl: '/partials/users.html'
-      })
-  }
-})();
+  $routeProvider
+    .when('/', {
+      controller: 'HomeController',
+      templateUrl: '/partials/home.html'
+    })
+    .when('/users/:id', {
+        controller: 'UsersController',
+        templateUrl: '/partials/users.html'
+    })
+});

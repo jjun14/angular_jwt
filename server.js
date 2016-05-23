@@ -10,7 +10,8 @@ var app = express();
 app.use(express.static(path.join(__dirname, './client')));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(expressJwt({ secret: jwtSecret }).unless({ path: ['/', '/login', '/register'] }));
+app.use(expressJwt({ secret: jwtSecret })
+          .unless({ path: ['/', '/login', '/register', '/favicon.ico'] }));
 
 // DB config
 require('./server/config/mongoose.js');

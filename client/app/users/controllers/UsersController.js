@@ -1,31 +1,23 @@
-(function(){
-  'use_strict';
-  angular
-    .module('app')
-    .controller('UsersController', UsersController);
-
-  function UsersController($location, UserFactory, RandomUserFactory){
-    var vm =this;
-    vm.getRandomUser = getRandomUser;
-    vm.logout = logout;
+myApp.controller('UsersController', function($scope, $location, UserFactory, RandomUserFactory){
+    $scope.getRandomUser = getRandomUser;
+    $scope.logout = logout;
     
     UserFactory.getUser().then(function success(response){
       console.log('Got user in the UserController');
       console.log(response);
-      vm.user = response.data;
+      $scope.user = response.data;
     });
 
     function logout(){
       UserFactory.logout()
-      vm.user = null;
+      $scope.user = null;
       $location.path('/');
     }
 
     function getRandomUser(){
       RandomUserFactory.getUser().then(function success(response){
-        vm.randomUser = response.data;
+        $scope.randomUser = response.data;
       });
     }
   }
-  
-})();
+)

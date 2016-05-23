@@ -1,15 +1,6 @@
-(function(){
-  'use strict';
-  angular
-    .module('app')
-    .factory('AuthInterceptor', AuthInterceptor);
-  
-  AuthInterceptor.$inject = ['AuthTokenFactory'];
-
-  function AuthInterceptor(AuthTokenFactory){
-    return {
-      request: addToken
-    };
+myApp.factory('AuthInterceptor', function (AuthTokenFactory){
+    var factory = {};
+    factory.request = addToken;
 
     function addToken(config){
       var token = AuthTokenFactory.getToken();
@@ -19,5 +10,7 @@
       }
       return config;
     }
+
+    return factory
   }
-})();
+);

@@ -1,18 +1,10 @@
-(function(){
-  'use strict'
-  angular
-    .module('app')
-    .factory('AuthTokenFactory', AuthTokenFactory);
-  
-  AuthTokenFactory.$inject = ['$window'];
-  function AuthTokenFactory($window){
+myApp.factory('AuthTokenFactory', function($window){
+    var factory = {};
     var store = $window.localStorage;
     var key = 'auth-token';
 
-    return {
-      getToken: getToken,
-      setToken: setToken 
-    };
+    factory.getToken = getToken;
+    factory.setToken = setToken;
 
     function getToken(){
       return store.getItem(key);
@@ -25,5 +17,7 @@
         store.removeItem(key);
       }
     }
+
+    return factory;
   }
-})();
+);

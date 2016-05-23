@@ -1,20 +1,13 @@
-(function(){
-  'use strict';
-  angular
-    .module('app')
-    .factory('UserFactory', UserFactory);
-
-  UserFactory.$inject = ['$http', 'API_URL', 'AuthTokenFactory', '$q'];
-  function UserFactory($http, API_URL, AuthTokenFactory, $q){
+myApp.factory('UserFactory', function($http, API_URL, AuthTokenFactory, $q){
     var user = null;
+    var factory = {};
+    factory.register = register;
+    factory.login = login;
+    factory.logout = logout;
+    factory.loggedIn = loggedIn;
+    factory.getUser =  getUser;
 
-    return {
-      register: register,
-      login: login,
-      logout: logout,
-      loggedIn, loggedIn,
-      getUser: getUser
-    };
+    return factory;
 
     function login(username, password){
       return $http.post(API_URL + '/login', {
@@ -60,4 +53,4 @@
       }
     }
   }
-})();
+);

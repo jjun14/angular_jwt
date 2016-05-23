@@ -1,15 +1,15 @@
 <div>
     <h1>Welcome</h1>
     <h2>Login</h2>
-    <form ng-submit="vm.login(vm.login_username, vm.login_password)">
-      <label>Username: </label><input type='text' ng-model='vm.login_username'/></label><br>
-      <label>Password: </label><input type='password' ng-model='vm.login_password'/></label>
+    <form ng-submit="login(login_username, login_password)">
+      <label>Username: </label><input type='text' ng-model='login_username'/></label><br>
+      <label>Password: </label><input type='password' ng-model='login_password'/></label>
       <button type="submit">Login</button>
     </form>
     <h2>Register</h2>
-    <form ng-submit="vm.register(vm.reg_username, vm.reg_password)">
-      <label>Username: </label><input type='text' ng-model='vm.reg_username'/></label><br>
-      <label>Password: </label><input type='password' ng-model='vm.reg_password'/></label>
+    <form ng-submit="register(reg_username, reg_password)">
+      <label>Username: </label><input type='text' ng-model='reg_username'/></label><br>
+      <label>Password: </label><input type='password' ng-model='reg_password'/></label>
       <button type="submit">Register</button>
     </form>
     <div>

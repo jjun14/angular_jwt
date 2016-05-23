@@ -1,17 +1,11 @@
-(function(){
-  'use strict';
-  angular
-    .module('app')
-    .factory('RandomUserFactory', RandomUserFactory);
-
-  RandomUserFactory.$inject = ['$http', 'API_URL']
-  function RandomUserFactory($http, API_URL){
-      return {
-        getUser: getUser
-      };
+myApp.factory('RandomUserFactory', function($http, API_URL){
+      var factory = {};
+      factory.getUser = getUser;
 
       function getUser(){
         return $http.get(API_URL + '/random-user');
       }
+
+      return factory;
   }
-})();
+);
